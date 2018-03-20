@@ -42,7 +42,6 @@ class Solar(object):
             relativePeriods[i.name] = self.calculateOrbitalPeriods(i)/eathPeriod
         return relativePeriods
 
-
     def logEnergy(self):
         with open('energyConservation.csv', 'a') as csvFile:
             writer = csv.writer(csvFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
@@ -64,7 +63,8 @@ class Solar(object):
                 position = np.array([float(planet[2]), float(planet[3])])
                 velocity = np.array([float(planet[4]), float(planet[5])])
                 radius = float(planet[6])
-                p = Planet(name, mass, position, velocity, radius)
+                colour = str(planet[7])
+                p = Planet(name, mass, position, velocity, radius, colour)
                 self.planets.append(p)
 
     # A function used to return a normalised vector of a vecotr passsed in
@@ -89,7 +89,10 @@ class Solar(object):
                 s = p.position - planet.position
                 forceDirection = self.normaliseVecotr(s)
                 magSqr = np.linalg.norm(s) * np.linalg.norm(s)
-                f = ((G *p.mass*planet.mass)/(magSqr)) * forceDirection
+                if magSqr != 0:
+                    f = ((G *p.mass*planet.mass)/(magSqr)) * forceDirection
+                else:
+                    f = np.zeros(2)
 
             totalForce = totalForce + f
 
@@ -192,7 +195,7 @@ class Solar(object):
         # add patches to the list as planets, with their positions as their centre
         radiusScaleFactor = 30000
         for p in self.planets:
-            c = plt.Circle((p.position[0], p.position[1]), p.radius * radiusScaleFactor, color='r')
+            c = plt.Circle((p.position[0], p.position[1]), p.radius * radiusScaleFactor, color=p.colour)
             ax.add_patch(c)
             patches.append(c)
 
