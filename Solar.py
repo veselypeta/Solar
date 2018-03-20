@@ -47,6 +47,11 @@ class Solar(object):
             writer = csv.writer(csvFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             writer.writerow([self.calculateTotalEnergy()])
 
+    def calculateDistance(self, planet1, planet2):
+        s = planet2.position - planet1.position
+        dist = np.linalg.norm(s)
+        return dist
+
     def getPlanet(self, name):
         for p in self.planets:
             if p.name == name:
