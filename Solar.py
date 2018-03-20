@@ -121,8 +121,6 @@ class Solar(object):
     def runTimestep(self):
         # increment time
         self.time += self.timestep
-        # log energy
-        self.logEnergy()
         # First Calculate all new Positions for all planets, and update their positions
         newPositions = []
         for planet in self.planets:
