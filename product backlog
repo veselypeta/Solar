@@ -1,0 +1,15 @@
+# Product Backlog
+
+1.  Add Data logging features to know how to log data from the simulation which can then later be analysed
+    so that the experiments results can be calculated.
+
+2.  Important might be phase angle relative to other planets. This can probably just be calculated from position.
+
+3.  Think of how you would experiment with a satellite. It might be useful to calculate a speed, then actually create a
+    satellite with that velocity, place it in the simulation and see if it reaches mars. The data can be analysed
+    to see how close it got. Probably the most simple way of finding the path is to use Hohmann transfers. A delta
+    V can be calculated to take the apehelion of the orbit to the radius of mars. Then you can calculate how long it
+    take to fly there from earth. Then you can calculate the phase angle at which mars must be so you arrive at the
+    same time.
+
+4.
