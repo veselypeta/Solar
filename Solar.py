@@ -5,7 +5,7 @@ from Planet import Planet
 import scipy.constants as k
 import matplotlib.pyplot as plt
 import matplotlib.animation as f
-import logging
+import math
 # declare G as a constant
 G = k.gravitational_constant
 
@@ -21,11 +21,38 @@ class Solar(object):
         self.timestep = 100000
         self.time = 0
 
+    def convertSecToDays(self, i):
+        days = i/(60 * 60 * 24)
+        return days
+
+    def calculateOrbitalPeriods(self, planet):
+        r = np.linalg.norm(planet.position)
+        v = np.linalg.norm(planet.velocity)
+        if v != 0:
+            period = (2 * math.pi * r)/v
+        else:
+            period = 0
+        return period
+
+    def relativePeriods(self):
+        earth = self.getPlanet('Earth')
+        eathPeriod = self.calculateOrbitalPeriods(earth)
+        relativePeriods = {}
+        for i in self.planets:
+            relativePeriods[i.name] = self.calculateOrbitalPeriods(i)/eathPeriod
+        return relativePeriods
+
+
     def logEnergy(self):
         with open('energyConservation.csv', 'a') as csvFile:
             writer = csv.writer(csvFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             writer.writerow([self.calculateTotalEnergy()])
 
+    def getPlanet(self, name):
+        for p in self.planets:
+            if p.name == name:
+                return p
+        return "No such planet exists with that name"
 
     # This reads in planets from a csv file and adds the planets to the self.planets list
     def loadPlanets(self, filename):
@@ -119,7 +146,6 @@ class Solar(object):
         e = planet.mass * g * h
         return e
 
-
     def calculateTotalEnergy(self):
         totalEnergy = 0
         for p in self.planets:
@@ -174,6 +200,4 @@ class Solar(object):
         plt.show()
 
 
-s = Solar("solardata.csv")
-for i in range(100):
-    s.logEnergy()
+s = Solar('solardata.csv')
