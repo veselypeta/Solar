@@ -168,3 +168,5 @@ s = Solar("solardata.csv")
 s.runAnimation()
 for i in range(1000):
     s.runTimestep()
+
+# I've changed something
