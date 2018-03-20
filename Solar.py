@@ -109,14 +109,24 @@ class Solar(object):
             newV = self.calculateNextVelocity(p)
             p.velocity = newV
 
+    # To calculate Gravitational Potential Energy, just use the formula E = mgh
+    # where m is mass of planet and g is gravitational acceleration and h is distance from sun
+    def calculateGravitationalPotentialEnergy(self, planet):
+        # Since energy is a scalar quantity then we just need the magnitude of the vectors involved.
+        f = np.linalg.norm(self.calculateForceApplied(planet))
+        g = f/planet.mass
+        h = np.linalg.norm(planet.position - self.planets[0].position)
+        e = planet.mass * g * h
+        return e
 
 
     def calculateTotalEnergy(self):
         totalEnergy = 0
         for p in self.planets:
             magVel = np.linalg.norm(p.velocity)
-            energy = 0.5 * p.mass * magVel * magVel
-            totalEnergy += energy
+            kinetic_energy = 0.5 * p.mass * magVel * magVel
+            gravit_energy = self.calculateGravitationalPotentialEnergy(p)
+            totalEnergy += (kinetic_energy + gravit_energy)
         return totalEnergy
 
     # method used to move the planets in the animation function -- i parameter not used
@@ -165,8 +175,5 @@ class Solar(object):
 
 
 s = Solar("solardata.csv")
-s.runAnimation()
-for i in range(1000):
-    s.runTimestep()
-
-# I've changed something
+for i in range(100):
+    s.logEnergy()
