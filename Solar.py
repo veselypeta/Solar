@@ -18,8 +18,17 @@ class Solar(object):
         self.loadPlanets(filename)
 
         self.initialisePreviousAccelerations()
-        self.timestep = 100000
+        self.timestep = 100
         self.time = 0
+
+    def getAngleBetween(self, planet1, planet2):
+        sun = self.getPlanet('Sun')
+        p1Vec = planet1.position - sun.position
+        p1Mag = np.linalg.norm(p1Vec)
+        p2Vec = planet2.position - sun.position
+        p2Mag = np.linalg.norm(p2Vec)
+        theta = math.acos((p1Vec.dot(p2Vec))/(p1Mag*p2Mag))
+        return theta
 
     def convertSecToDays(self, i):
         days = i/(60 * 60 * 24)
@@ -206,4 +215,3 @@ class Solar(object):
         plt.show()
 
 
-s = Solar('solardata.csv')
