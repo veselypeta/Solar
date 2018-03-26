@@ -18,16 +18,18 @@ class Solar(object):
         self.loadPlanets(filename)
 
         self.initialisePreviousAccelerations()
-        self.timestep = 100
+        self.timestep = 100000
         self.time = 0
 
-    def getAngleBetween(self, planet1, planet2):
+    def getAngleBetween(self, planetName1, planetName2):
         sun = self.getPlanet('Sun')
+        planet1 = self.getPlanet(planetName1)
+        planet2 = self.getPlanet(planetName2)
         p1Vec = planet1.position - sun.position
         p1Mag = np.linalg.norm(p1Vec)
         p2Vec = planet2.position - sun.position
         p2Mag = np.linalg.norm(p2Vec)
-        theta = math.acos((p1Vec.dot(p2Vec))/(p1Mag*p2Mag))
+        theta = math.acos((np.dot(p1Vec, p2Vec))/(p1Mag*p2Mag))
         return theta
 
     def convertSecToDays(self, i):
@@ -134,6 +136,7 @@ class Solar(object):
 
     def runTimestep(self):
         # increment time
+        # print(self.getAngleBetween('Earth', 'Mars'))
         self.time += self.timestep
         # First Calculate all new Positions for all planets, and update their positions
         newPositions = []
@@ -167,7 +170,8 @@ class Solar(object):
             magVel = np.linalg.norm(p.velocity)
             kinetic_energy = 0.5 * p.mass * magVel * magVel
             gravit_energy = self.calculateGravitationalPotentialEnergy(p)
-            totalEnergy += (kinetic_energy + gravit_energy)
+            # I don't know if this should be positive or negative
+            totalEnergy += (kinetic_energy - gravit_energy)
         return totalEnergy
 
     # method used to move the planets in the animation function -- i parameter not used
