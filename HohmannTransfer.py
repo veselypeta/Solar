@@ -51,42 +51,45 @@ class HohmannTransfer():
         theta = math.pi*(1-2*((self.getOrbitalPeriod(p1Name, p2Name)/2)/self.sim.calculateOrbitalPeriods(p2)))
         return theta
 
-    # give it a phase angle to launch for -- then it get the orbital transfer velocity
-    # and return a value for the closest approach to the planet
-    def launchSatelite(self, satelliteName, launchPlanetName, targetPlanetName, angle):
-        launchPlanet = self.sim.getPlanet(launchPlanetName)
-        targetPlanet = self.sim.getPlanet(targetPlanetName)
-        # run the simulation until the angle is reached.
-        angle = round(angle, 3)
+    def launchProbleToMars(self, angle):
+        earth = self.sim.getPlanet('Earth')
+        mars = self.sim.getPlanet('Mars')
+        closest_approach = float('inf')
+        # theoretical_angle = self.transferAngle('Earth', 'Mars')
+        # range = Solar.degreesToRadians(10)
+        # test_angles = np.arange(theoretical_angle-range, theoretical_angle+range, Solar.degreesToRadians(1))
 
-        # When planet is in position of the angle - launch the satellite
+        # wait 2 years initially to have the planets not all in alignment
+        two_years = self.sim.calculateOrbitalPeriods(earth) * 0.5
+        while self.sim.time < two_years:
+            self.sim.runTimestep()
+
         while True:
             self.sim.runTimestep()
-            currAngle = round(self.sim.getAngleBetween(launchPlanetName, targetPlanetName), 3)
-            # print(currAngle)
-            if currAngle == angle:
-                launchVelocity = self.transferVelocity(launchPlanetName, targetPlanetName)
-                # print(launchVelocity)
-                # set the position so that there no effect from the gravity of the launchPlanet.
-                satellite = Planet(satelliteName, 100, launchPlanet.position , launchVelocity, launchPlanet.radius, 'b')
-                self.sim.planets.append(satellite)
-                break
-
-        self.sim.runAnimation()
-        # period = self.getOrbitalPeriod(launchPlanetName, targetPlanetName) + self.sim.time
-        # minDistance = float('inf')
-        # while self.sim.time < (period):
-        #     self.sim.runTimestep()
-        #     dist = self.sim.calculateDistance(targetPlanet, self.sim.getPlanet(targetPlanetName))
-        #     if (dist < minDistance):
-        #         minDistance = dist
-        #
-        # return minDistance
+            angle = round(angle, 3)
+            earth_mars_angle = round(self.sim.getAngleBetween(earth, mars),3)
+            if angle == earth_mars_angle:
+                # launch Sattelite
 
 
+                # run the simulation for 1 period of the eliptical orbit of the probe
+                simulation_time = self.sim.time + self.getOrbitalPeriod('Earth', 'Mars')
+                probe_velocity = self.transferVelocity('Earth', 'Mars')
+                mars_probe = Planet('Mars Probe', 100, earth.position, probe_velocity, earth.radius, (0.6, 0.6, 0.6))
+                self.sim.planets.append(mars_probe)
+                self.sim.runAnimation()
+                while self.sim.time < simulation_time:
+                    self.sim.runTimestep()
+                    dist = self.sim.calculateDistance(self.sim.getPlanet('Mars Probe'), self.sim.getPlanet('Mars'))
+                    if dist < closest_approach:
+                        closest_approach = dist
+                return closest_approach
 
 
 
 
 h = HohmannTransfer()
-
+r = 44/180.0 * math.pi
+print(h.getOrbitalPeriod('Earth', 'Mars'))
+d = h.launchProbleToMars(r)
+print(d)
