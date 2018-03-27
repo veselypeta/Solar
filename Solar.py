@@ -6,11 +6,12 @@ import scipy.constants as k
 import matplotlib.pyplot as plt
 import matplotlib.animation as f
 import math
-# declare G as a constant
-G = k.gravitational_constant
+
 
 
 class Solar(object):
+    # declare G as a constant -- static variable
+    G = k.gravitational_constant
     @classmethod
     def degreesToRadians(cls, degrees):
         r = (degrees/180.0) * math.pi
@@ -50,13 +51,6 @@ class Solar(object):
         else:
             period = 0
         return period
-
-
-
-    def logEnergy(self):
-        with open('energyConservation.csv', 'a') as csvFile:
-            writer = csv.writer(csvFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-            writer.writerow([self.calculateTotalEnergy()])
 
     def calculateDistance(self, planet1, planet2):
         s = planet2.position - planet1.position
@@ -106,7 +100,7 @@ class Solar(object):
                 forceDirection = self.normaliseVecotr(s)
                 magSqr = np.linalg.norm(s) * np.linalg.norm(s)
                 if magSqr != 0:
-                    f = ((G *p.mass*planet.mass)/(magSqr)) * forceDirection
+                    f = ((Solar.G *p.mass*planet.mass)/(magSqr)) * forceDirection
                 else:
                     f = np.zeros(2)
 
@@ -138,7 +132,6 @@ class Solar(object):
         # increment time)
         self.time += self.timestep
         # log total energy to file
-        self.logEnergy()
         # First Calculate all new Positions for all planets, and update their positions
         newPositions = []
         for planet in self.planets:
@@ -154,26 +147,6 @@ class Solar(object):
         for p in self.planets:
             newV = self.calculateNextVelocity(p)
             p.velocity = newV
-
-    # To calculate Gravitational Potential Energy, just use the formula E = mgh
-    # where m is mass of planet and g is gravitational acceleration and h is distance from sun
-    def calculateGravitationalPotentialEnergy(self, planet):
-        # Since energy is a scalar quantity then we just need the magnitude of the vectors involved.
-        f = np.linalg.norm(self.calculateForceApplied(planet))
-        g = f/planet.mass
-        h = np.linalg.norm(planet.position - self.planets[0].position)
-        e = planet.mass * g * h
-        return e
-
-    def calculateTotalEnergy(self):
-        totalEnergy = 0
-        for p in self.planets:
-            magVel = np.linalg.norm(p.velocity)
-            kinetic_energy = 0.5 * p.mass * magVel * magVel
-            gravit_energy = self.calculateGravitationalPotentialEnergy(p)
-            # I don't know if this should be positive or negative
-            totalEnergy += (kinetic_energy - gravit_energy)
-        return totalEnergy
 
     # method used to move the planets in the animation function -- i parameter not used
     def movePlanets(self, i, patches):

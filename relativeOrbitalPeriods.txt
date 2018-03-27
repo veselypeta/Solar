@@ -1,0 +1,5 @@
+Mercury has period 0.242675105485 Years
+Sun has period 0.0 Years
+Venus has period 0.613028571429 Years
+Mars has period 1.87950207469 Years
+Earth has period 1.0 Years

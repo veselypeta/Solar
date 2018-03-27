@@ -4,7 +4,6 @@ import numpy as np
 import scipy.constants as k
 import math
 
-G = k.gravitational_constant
 
 class HohmannTransfer():
 
@@ -27,7 +26,7 @@ class HohmannTransfer():
     # to calculate phase angle of launch
     def getOrbitalPeriod(self, p1Name, p2Name):
         sun = self.sim.getPlanet('Sun')
-        k = (4*math.pow(math.pi, 2))/(sun.mass * G)
+        k = (4*math.pow(math.pi, 2))/(sun.mass * Solar.G)
         p = math.sqrt(math.pow(self.semiMajorAxis(p1Name, p2Name), 3)* k)
         return p
 
