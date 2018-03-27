@@ -1,0 +1,54 @@
+New Experiment Started for 3 Years!
+An asteroid was randomly created with a position of [53457894274 -9763110424] and a velocity of [-17236  38445]. There are now 1
+An asteroid was randomly created with a position of [-80264613605 315889440043] and a velocity of [-32081  47056]. There are now 2
+An asteroid was randomly created with a position of [-831430228648 -199299759738] and a velocity of [29702  5988]. There are now 3
+An asteroid was randomly created with a position of [-972679955043 1009701622161] and a velocity of [-35403  43222]. There are now 4
+An asteroid was randomly created with a position of [138755396478 1474864938711] and a velocity of [-11406 -34256]. There are now 5
+An asteroid was randomly created with a position of [1143525451802 2620728506717] and a velocity of [-34275  13079]. There are now 6
+An asteroid was randomly created with a position of [237458072698 2946365273428] and a velocity of [-28033  28643]. There are now 7
+An asteroid was randomly created with a position of [-3466813569552 -3155632866704] and a velocity of [-11576 -25914]. There are now 8
+An asteroid was randomly created with a position of [-156146111577 1499903485462] and a velocity of [30304 31413]. There are now 9
+An asteroid was randomly created with a position of [4700772456572 -4956533720545] and a velocity of [-18729 -45710]. There are now 10
+An asteroid was randomly created with a position of [-2358677182640 -5817725631776] and a velocity of [ 3889 37416]. There are now 11
+An asteroid was randomly created with a position of [-1336309058504 4039475022206] and a velocity of [ 2270 48008]. There are now 12
+An asteroid was randomly created with a position of [5462227719904 692663445248] and a velocity of [  5348 -39324]. There are now 13
+An asteroid was randomly created with a position of [-4323540205486 -5320114386248] and a velocity of [  9514 -44386]. There are now 14
+An asteroid was randomly created with a position of [-3173512052886 -2068390272753] and a velocity of [-11071  34389]. There are now 15
+An asteroid was randomly created with a position of [2275608771392 -1001683970532] and a velocity of [-3146 23406]. There are now 16
+An asteroid was randomly created with a position of [3614457617676 -2813368614462] and a velocity of [-3154  2346]. There are now 17
+An asteroid was randomly created with a position of [1541355555995 -1493724212056] and a velocity of [-3166 -4150]. There are now 18
+An asteroid was randomly created with a position of [1481365734715 -3044275999966] and a velocity of [-17118 -36886]. There are now 19
+An asteroid was randomly created with a position of [6179833776170 -4357192829212] and a velocity of [  1162 -29641]. There are now 20
+An asteroid was randomly created with a position of [9944545192184 -976543501776] and a velocity of [-48840  22274]. There are now 21
+An asteroid was randomly created with a position of [3584243794621 -331491865565] and a velocity of [ 8076 -8917]. There are now 22
+An asteroid was randomly created with a position of [11392854949833 8797852343165] and a velocity of [ 18200 -24860]. There are now 23
+An asteroid was randomly created with a position of [4310054157014 10278453285693] and a velocity of [-15603  36764]. There are now 24
+An asteroid was randomly created with a position of [-14192399577028 -2263680005495] and a velocity of [ -4904 -25949]. There are now 25
+An asteroid was randomly created with a position of [-14183078926570 -8357948370294] and a velocity of [ -8324 -40550]. There are now 26
+An asteroid was randomly created with a position of [9085319143129 -15537637653443] and a velocity of [34265 -2767]. There are now 27
+An asteroid was randomly created with a position of [10998720091435 -17951508301549] and a velocity of [30302 47071]. There are now 28
+An asteroid was randomly created with a position of [-7617653643363 1172291638587] and a velocity of [46821 47520]. There are now 29
+An asteroid was randomly created with a position of [4092965536965 14749055929555] and a velocity of [-31712 -34259]. There are now 30
+An asteroid was randomly created with a position of [-14681743680380 -1486128276795] and a velocity of [20174 -9432]. There are now 31
+An asteroid was randomly created with a position of [-10146456396152 -2272336071516] and a velocity of [15245 27374]. There are now 32
+An asteroid was randomly created with a position of [-20415667238241 18377935332818] and a velocity of [-13314 -35357]. There are now 33
+An asteroid was randomly created with a position of [21723267435173 -1654786531414] and a velocity of [36471 44389]. There are now 34
+An asteroid was randomly created with a position of [-3357749214488 20711422506557] and a velocity of [-9636  8918]. There are now 35
+An asteroid was randomly created with a position of [26046894741548 -2424931872541] and a velocity of [16109 34328]. There are now 36
+An asteroid was randomly created with a position of [-19150451654725 24096021427339] and a velocity of [-37686 -32395]. There are now 37
+An asteroid was randomly created with a position of [22213244541449 15682793676509] and a velocity of [-49396  10485]. There are now 38
+An asteroid was randomly created with a position of [-27146201798150 -22100452880672] and a velocity of [11551 37332]. There are now 39
+An asteroid was randomly created with a position of [7354648512967 -29324788908223] and a velocity of [-15590  26412]. There are now 40
+An asteroid was randomly created with a position of [-9756190849570 -6043484778151] and a velocity of [-30292 -23332]. There are now 41
+An asteroid was randomly created with a position of [25520977247515 -22606031920933] and a velocity of [22989 27780]. There are now 42
+An asteroid was randomly created with a position of [-22271295430387 -27421248803392] and a velocity of [ 5814 32816]. There are now 43
+An asteroid was randomly created with a position of [-1834902536594 -25012232124669] and a velocity of [-24975  30291]. There are now 44
+An asteroid was randomly created with a position of [8717043776555 12197411130012] and a velocity of [-42908 -33224]. There are now 45
+An asteroid was randomly created with a position of [4271131484677 -18134929652518] and a velocity of [-27697  -3333]. There are now 46
+An asteroid was randomly created with a position of [22809231097325 29989502059085] and a velocity of [-21503  43103]. There are now 47
+An asteroid was randomly created with a position of [16314906061742 -35724550245788] and a velocity of [ 28292 -14719]. There are now 48
+An asteroid was randomly created with a position of [12382503949496 -23952126054596] and a velocity of [18448 28596]. There are now 49
+An asteroid was randomly created with a position of [34294969777126 -3977429304853] and a velocity of [42250 11785]. There are now 50
+An asteroid was randomly created with a position of [7635086119879 12286174658078] and a velocity of [-22816 -43975]. There are now 51
+An asteroid was randomly created with a position of [25708157512304 16183928345262] and a velocity of [34995  4919]. There are now 52
+An asteroid was randomly created with a position of [30189230686815 16949469646867] and a velocity of [ 12984 -30726]. There are now 53
