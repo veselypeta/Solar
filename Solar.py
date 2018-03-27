@@ -16,12 +16,13 @@ class Solar(object):
         r = (degrees/180.0) * math.pi
         return r
 
-    def __init__(self, filename):
+    # allow timestep to be a kwarg
+    def __init__(self, filename, timestep=100000):
         self.planets = []
         # read in file to create planets
         self.loadPlanets(filename)
         self.initialisePreviousAccelerations()
-        self.timestep = 100000
+        self.timestep = timestep
         self.time = 0
 
     def getAngleBetween(self, planet1, planet2):
@@ -50,13 +51,7 @@ class Solar(object):
             period = 0
         return period
 
-    def relativePeriods(self):
-        earth = self.getPlanet('Earth')
-        eathPeriod = self.calculateOrbitalPeriods(earth)
-        relativePeriods = {}
-        for i in self.planets:
-            relativePeriods[i.name] = self.calculateOrbitalPeriods(i)/eathPeriod
-        return relativePeriods
+
 
     def logEnergy(self):
         with open('energyConservation.csv', 'a') as csvFile:
@@ -140,9 +135,10 @@ class Solar(object):
         return nextVelocity
 
     def runTimestep(self):
-        # increment time
-        # print(self.getAngleBetween('Earth', 'Mars'))
+        # increment time)
         self.time += self.timestep
+        # log total energy to file
+        self.logEnergy()
         # First Calculate all new Positions for all planets, and update their positions
         newPositions = []
         for planet in self.planets:
@@ -222,5 +218,4 @@ class Solar(object):
 
         animation = f.FuncAnimation(fig, self.movePlanets, fargs=(patches,))
         plt.show()
-
 

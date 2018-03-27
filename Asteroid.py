@@ -2,19 +2,50 @@ from Planet import Planet
 import random as rand
 import numpy as np
 from Solar import Solar
-
+# Figure out how to randomly add asteroids to the simulation
+# Also test if there is a close encounter with the earth.
 
 class Asteroid():
 
     def __init__(self):
         self.sim = Solar('solardata.csv')
+        self.numberOfAsteroids = 0
+        self.log = 'asteroidExperimentLog.txt'
 
     # This function runs the simulation for a given number of years
-    def runAsteroidSimulation(self, years):
+    def runAsteroidSimulation(self, years, probability):
+        self.logString("New Experiment Started for " + str(years) + " Years!")
         earth = self.sim.getPlanet('Earth')
         time = years * self.sim.calculateOrbitalPeriods(earth)
         while self.sim.time < time:
             self.sim.runTimestep()
+            if rand.random() < probability:
+                self.addAsteroid()
+            # check if there is a close encounter
+            for obj in self.sim.planets:
+                if obj.name == 'asteroid':
+                    if self.closeEncounter(obj):
+                        self.logCloseEncouter(obj)
+
+
+    def logCloseEncouter(self, asteroid):
+        with open(self.log, 'a') as myFile:
+            earth = self.sim.getPlanet('Earth')
+            distance = self.sim.calculateDistance(earth, asteroid)
+            myFile.write("There was a close encouter with an asteroid at time: " + str(self.sim.time) +
+                         " and the asteroid had a mass of " + str(asteroid.mass)+ ". The asteroid was " +
+                         str(distance) + "m  from earth" + '\n')
+
+    def logAsteroid(self, asteroid):
+        with open(self.log, 'a') as myFile:
+            myFile.write("An asteroid was randomly created with a position of " + str(asteroid.position) +
+                         " and a velocity of " + str(asteroid.velocity) + ". There are now " +
+                         str(self.numberOfAsteroids) +  '\n')
+
+    def logString(self, string):
+        with open(self.log, 'a') as myFile:
+            myFile.write(string + '\n')
+
 
     # This function checks if the asteroid is near the earth -- i.e. will there be an impact
     def closeEncounter(self, asteroid):
@@ -22,7 +53,8 @@ class Asteroid():
         earth = self.sim.getPlanet('Earth')
         distance = self.sim.calculateDistance(asteroid, earth)
         # a closest approach is considered around between 10 - 100 thousand km
-        if distance < 100*(10**6):
+        # had to increase the distance so that we can log how far away it is.
+        if distance < 100*(10**8):
             encounter = True
         return encounter
 
@@ -47,6 +79,7 @@ class Asteroid():
 
     # This function adds an asteroid randomly to the simulation with random velocity and position
     def addAsteroid(self):
+        self.numberOfAsteroids += 1
         # asteroids typically weigh between 2.8-3.2 *10^21 kg
         asteroid_mass = rand.randrange(280, 320, 1) * 10**19
         asteroid_position = self.getRandomPosition()
@@ -54,9 +87,8 @@ class Asteroid():
         grey = (0.5, 0.5, 0.5)
         asteroid_radius = 10000
         asteroid = Planet('asteroid', asteroid_mass, asteroid_position, asteroid_velocity, asteroid_radius, grey)
+        self.logAsteroid(asteroid)
         self.sim.planets.append(asteroid)
 
-
-
 i = Asteroid()
-i.runAsteroidSimulation(0.01)
+i.runAsteroidSimulation(3, 0.5)

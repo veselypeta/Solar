@@ -36,7 +36,13 @@ class PlanetAlignment(object):
 
         while not self.isAligned():
             self.sim.runTimestep()
+        self.sim.time = 0
 
+        while self.sim.time < year:
+            self.sim.runTimestep()
+
+        while not self.isAligned():
+            self.sim.runTimestep()
         print(Solar.degreesToRadians(5))
         merc = self.sim.getPlanet('Mercury')
         print(self.sim.getAngleBetween(earth, merc))
@@ -44,6 +50,7 @@ class PlanetAlignment(object):
         return time_of_alignment
 
 
-
+i = PlanetAlignment()
+i.runSimulation()
 
 
