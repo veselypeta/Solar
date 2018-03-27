@@ -11,6 +11,10 @@ G = k.gravitational_constant
 
 
 class Solar(object):
+    @classmethod
+    def degreesToRadians(cls, degrees):
+        r = (degrees/180.0) * math.pi
+        return r
 
     def __init__(self, filename):
         self.planets = []
@@ -20,10 +24,12 @@ class Solar(object):
         self.timestep = 100000
         self.time = 0
 
-    def getAngleBetween(self, planetName1, planetName2):
+    def getAngleBetween(self, planet1, planet2):
+        # check if object or planet name is passed in
         sun = self.getPlanet('Sun')
-        planet1 = self.getPlanet(planetName1)
-        planet2 = self.getPlanet(planetName2)
+        if type(planet1) == str:
+            planet1 = self.getPlanet(planet1)
+            planet2 = self.getPlanet(planet1)
         p1Vec = planet1.position - sun.position
         p1Mag = np.linalg.norm(p1Vec)
         p2Vec = planet2.position - sun.position
