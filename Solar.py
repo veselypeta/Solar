@@ -185,9 +185,9 @@ class Solar(object):
     def getAnimationRange(self):
         max = 0
         for i in range(len(self.planets)):
-            for j in self.planets[i].position:
-                if max < j:
-                    max = j
+            posMag = np.linalg.norm(self.planets[i].position)
+            if max < posMag:
+                max = posMag
 
         return max
 

@@ -9,8 +9,8 @@ G = k.gravitational_constant
 class HohmannTransfer():
 
     # Pass in a simulation at a certain state
-    def __init__(self, simulation):
-        self.sim = simulation
+    def __init__(self):
+        self.sim = Solar('solardata.csv')
 
     # Works!
     def semiMajorAxis(self, p1Name, p2Name):
@@ -57,39 +57,36 @@ class HohmannTransfer():
         launchPlanet = self.sim.getPlanet(launchPlanetName)
         targetPlanet = self.sim.getPlanet(targetPlanetName)
         # run the simulation until the angle is reached.
-        currAngle = self.sim.getAngleBetween(launchPlanetName, targetPlanetName)
-        range = 0.01
-        # Add some sort of range for the value to be in.
+        angle = round(angle, 3)
+
+        # When planet is in position of the angle - launch the satellite
         while True:
-            if (currAngle-range >= angle) and (currAngle + range <= angle):
+            self.sim.runTimestep()
+            currAngle = round(self.sim.getAngleBetween(launchPlanetName, targetPlanetName), 3)
+            # print(currAngle)
+            if currAngle == angle:
                 launchVelocity = self.transferVelocity(launchPlanetName, targetPlanetName)
+                # print(launchVelocity)
                 # set the position so that there no effect from the gravity of the launchPlanet.
                 satellite = Planet(satelliteName, 100, launchPlanet.position , launchVelocity, launchPlanet.radius, 'b')
                 self.sim.planets.append(satellite)
                 break
 
-        # Should i run the rest of the simulation here or have anoher function to run it????
-
-        # launch the satellite
-        # get it's position to mars
-        # run the simulation for 1 entire period the orbit
-        # return closest approach
-
-
-
-
-a = Solar('solardata.csv')
-h = HohmannTransfer(a)
-earth = a.getPlanet('Earth')
-s = h.transferAngle('Earth', 'Mars')
-
-# plan
-
-# I want to run the simulation and record the closes approach of the satelite as it gets to mars for a given phase angle.
-# Then this can be plotted to see if the theoretically calculated angle in the best.
+        self.sim.runAnimation()
+        # period = self.getOrbitalPeriod(launchPlanetName, targetPlanetName) + self.sim.time
+        # minDistance = float('inf')
+        # while self.sim.time < (period):
+        #     self.sim.runTimestep()
+        #     dist = self.sim.calculateDistance(targetPlanet, self.sim.getPlanet(targetPlanetName))
+        #     if (dist < minDistance):
+        #         minDistance = dist
+        #
+        # return minDistance
 
 
 
 
 
+
+h = HohmannTransfer()
 
