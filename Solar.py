@@ -16,7 +16,6 @@ class Solar(object):
         self.planets = []
         # read in file to create planets
         self.loadPlanets(filename)
-
         self.initialisePreviousAccelerations()
         self.timestep = 100000
         self.time = 0

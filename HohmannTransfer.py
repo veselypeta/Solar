@@ -8,7 +8,7 @@ G = k.gravitational_constant
 
 class HohmannTransfer():
 
-    # Pass in a simulation at a certain state
+    # initialise a simulation
     def __init__(self):
         self.sim = Solar('solardata.csv')
 

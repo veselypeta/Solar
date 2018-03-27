@@ -10,11 +10,22 @@ class Asteroid():
         self.sim = Solar('solardata.csv')
 
     # This function runs the simulation for a given number of years
-    def runSimulation(self, years):
+    def runAsteroidSimulation(self, years):
         earth = self.sim.getPlanet('Earth')
         time = years * self.sim.calculateOrbitalPeriods(earth)
         while self.sim.time < time:
             self.sim.runTimestep()
+
+    # This function checks if the asteroid is near the earth -- i.e. will there be an impact
+    def closeEncounter(self, asteroid):
+        encounter = False
+        earth = self.sim.getPlanet('Earth')
+        distance = self.sim.calculateDistance(asteroid, earth)
+        # a closest approach is considered around between 10 - 100 thousand km
+        if distance < 100*(10**6):
+            encounter = True
+        return encounter
+
 
     # This function will generate a random position for an asteroid that is reasonable.
     # i.e. not too close to the sun and not miles away
@@ -25,8 +36,6 @@ class Asteroid():
         rand_y = rand.randrange(-max_range,max_range, 1)
         random_position = np.array([rand_x, rand_y])
         return random_position
-
-
 
     # This function will generate a random velocity for an asteroid -- also within a certain range.
     def getRandomVelocity(self):
@@ -50,6 +59,4 @@ class Asteroid():
 
 
 i = Asteroid()
-i.runSimulation(0.01)
-i.addAsteroid()
-i.sim.runAnimation()
+i.runAsteroidSimulation(0.01)
