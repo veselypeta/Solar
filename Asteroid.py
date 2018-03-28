@@ -2,8 +2,7 @@ from Planet import Planet
 import random as rand
 import numpy as np
 from Solar import Solar
-# Figure out how to randomly add asteroids to the simulation
-# Also test if there is a close encounter with the earth.
+
 
 class Asteroid():
 
@@ -21,7 +20,7 @@ class Asteroid():
             self.sim.runTimestep()
             if rand.random() < probability:
                 self.addAsteroid()
-            # check if there is a close encounter
+            # check if there is a close encounter and log it
             for obj in self.sim.planets:
                 if obj.name == 'asteroid':
                     if self.closeEncounter(obj):
