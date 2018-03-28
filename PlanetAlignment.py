@@ -3,8 +3,10 @@ from Solar import Solar
 
 class PlanetAlignment(object):
 
-    def __init__(self):
+    def __init__(self, tolerance = 10, logfile = 'planetAlignment.txt'):
         self.sim = Solar('solardata.csv')
+        self.logfile = logfile
+        self.tolerance = tolerance
 
     def isAligned(self):
         aligned = False
@@ -20,14 +22,14 @@ class PlanetAlignment(object):
                     angle = self.sim.getAngleBetween(p2, p1)
                     # if the angle is less than some value, the they are aligned
                     # otherwise not
-                    if angle < Solar.degreesToRadians(5):
+                    if angle < Solar.degreesToRadians(self.tolerance):
                         aligned = True
                     else:
                         return False
         return aligned
 
     # Works -- but quite slow
-    def runSimulation(self):
+    def runSimulation(self,):
         # run simulation for 1 year before checking if planets are aligned
         earth = self.sim.getPlanet('Earth')
         year = self.sim.calculateOrbitalPeriods(earth)
@@ -43,14 +45,20 @@ class PlanetAlignment(object):
 
         while not self.isAligned():
             self.sim.runTimestep()
-        print(Solar.degreesToRadians(5))
-        merc = self.sim.getPlanet('Mercury')
-        print(self.sim.getAngleBetween(earth, merc))
+
         time_of_alignment = self.sim.time / year
-        return time_of_alignment
+        self.logResult(time_of_alignment)
+        #return time_of_alignment
 
+    def logResult(self, time):
+        with open(self.logfile, 'a') as myFile:
+            message = "The Planets Have Aligned to within " + str(self.tolerance) + " degrees after " + \
+                      str(time) + " years." + '\n'
+            myFile.write(message)
 
-i = PlanetAlignment()
-i.runSimulation()
+for s in range(10, 15):
+    a = PlanetAlignment(s)
+    a.runSimulation()
+
 
 
