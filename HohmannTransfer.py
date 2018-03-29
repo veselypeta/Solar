@@ -1,15 +1,17 @@
 from Solar import Solar
 from Planet import Planet
 import numpy as np
-import scipy.constants as k
 import math
+import csv
 
 
 class HohmannTransfer():
 
     # initialise a simulation
     def __init__(self):
-        self.sim = Solar('solardata.csv', 1000)
+        self.sim = Solar('solardata.csv', 10000)
+        self.logfile = "marsExperiment.txt"
+        self.rawData = "marsExperimentData.csv"
 
     def getClockwiselockwiseAngle(self, planet):
         sun = self.sim.getPlanet('Sun')
@@ -57,9 +59,9 @@ class HohmannTransfer():
         theta = math.pi*(1-2*((self.getOrbitalPeriod(p1Name, p2Name)/2)/self.sim.calculateOrbitalPeriods(p2)))
         return theta
 
-    def launchProbe(self, angle):
+    def launchProbe(self, launchAngle):
         # shift the angle by 180 degrees since i'm launching the satellite from the opposite side
-        angle += math.pi
+        launchAngle = round(launchAngle + math.pi, 3)
         earth = self.sim.getPlanet('Earth')
         mars = self.sim.getPlanet('Mars')
         # run the simulation for two years
@@ -68,9 +70,8 @@ class HohmannTransfer():
             self.sim.runTimestep()
 
         # I'm rounding the angles to 3 d.p. because otherwise they would be too precise to equate
-        angle = round(angle, 3)
         marsAngle = round(self.getClockwiselockwiseAngle(mars) - self.getClockwiselockwiseAngle(earth), 3)
-        while marsAngle != angle:
+        while marsAngle != launchAngle:
             self.sim.runTimestep()
             marsAngle = round(self.getClockwiselockwiseAngle(mars) - self.getClockwiselockwiseAngle(earth), 3)
 
@@ -90,6 +91,25 @@ class HohmannTransfer():
             distance = self.sim.calculateDistance(a, b)
             if distance < closestApproach:
                 closestApproach = distance
-        return closestApproach
+        self.logClosestApproach(closestApproach, Solar.radiansToDegrees(marsAngle - math.pi))
+        self.logData(closestApproach, Solar.radiansToDegrees(marsAngle - math.pi))
 
+    def logClosestApproach(self, distance, angle):
+        with open(self.logfile, 'a') as myFile:
+            message = "The probe was launched to mars at an angle of " + str(angle) \
+                      + " and was at a closest approach of " + str(distance) + " m." + '\n'
+            myFile.write(message)
+
+    def logData(self, distance, angle):
+        with open(self.rawData, 'a') as myFile:
+            writer = csv.writer(myFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+            writer.writerow([distance, angle])
+
+def main():
+    angles = np.arange(30, 50, 1)
+    for i in range(len(angles)):
+        h = HohmannTransfer()
+        h.launchProbe(Solar.degreesToRadians(angles[i]))
+
+main()
 

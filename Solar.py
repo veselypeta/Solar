@@ -17,6 +17,11 @@ class Solar(object):
         r = (degrees/180.0) * math.pi
         return r
 
+    @classmethod
+    def radiansToDegrees(cls, rad):
+        d = rad/math.pi * 180
+        return d
+
     # allow timestep to be a kwarg
     def __init__(self, filename, timestep=100000):
         self.planets = []
