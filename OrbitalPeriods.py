@@ -1,6 +1,6 @@
 from Solar import Solar
 
-# this class is to create a log file to outplut the relative periods of orbits
+# this class is to create a log file to output the relative periods of orbits
 # as fractions of an earth year
 class OrbitalPeriods(object):
 
