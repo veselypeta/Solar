@@ -222,3 +222,9 @@ class Solar(object):
         animation = f.FuncAnimation(fig, self.movePlanets, fargs=(patches,))
         plt.show()
 
+
+def __main__():
+    s = Solar('solardata.csv')
+    s.runAnimation()
+
+__main__()

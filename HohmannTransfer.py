@@ -103,7 +103,7 @@ class HohmannTransfer():
     def logData(self, distance, angle):
         with open(self.rawData, 'a') as myFile:
             writer = csv.writer(myFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-            writer.writerow([distance, angle])
+            writer.writerow([angle, distance])
 
 def main():
     angles = np.arange(30, 50, 1)

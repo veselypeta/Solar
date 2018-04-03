@@ -39,5 +39,8 @@ class EnergyConservation(object):
             self.sim.runTimestep()
             self.logEnergy()
 
-a = EnergyConservation()
-a.runSimulation()
+def __main__():
+    a = EnergyConservation()
+    a.runSimulation()
+
+__main__()

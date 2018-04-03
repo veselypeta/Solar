@@ -56,9 +56,10 @@ class PlanetAlignment(object):
                       str(time) + " years." + '\n'
             myFile.write(message)
 
-for s in range(10, 15):
-    a = PlanetAlignment(s)
-    a.runSimulation()
+def __main__():
+    for s in range(10, 20):
+        a = PlanetAlignment(s)
+        a.runSimulation()
 
-
+__main__()
 

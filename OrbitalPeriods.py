@@ -27,5 +27,8 @@ class OrbitalPeriods(object):
                 myFile.write(str(val) + " has period " + str(rel_periods[val]) + " Years" + '\n')
 
 # run code
-a = OrbitalPeriods()
-a.logRelativePeriods()
+def __main__():
+    a = OrbitalPeriods()
+    a.logRelativePeriods()
+
+__main__()
