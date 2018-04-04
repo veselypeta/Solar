@@ -111,5 +111,17 @@ def main():
         h = HohmannTransfer()
         h.launchProbe(Solar.degreesToRadians(angles[i]))
 
-main()
+# main()
+def orbitalPeriodOfTransfer():
+    h = HohmannTransfer()
+    t = h.getOrbitalPeriod('Earth', 'Mars')
+    t = h.sim.convertSecToDays(t)
+    print("Orbital Period of probe" + str(t))
 
+def idealAngle():
+    h = HohmannTransfer()
+    a = h.transferAngle('Earth', 'Mars')
+    print("Ideas launch angle: " + str(Solar.radiansToDegrees(a)))
+
+orbitalPeriodOfTransfer()
+idealAngle()

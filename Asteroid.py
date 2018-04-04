@@ -89,7 +89,7 @@ class Asteroid():
         self.logAsteroid(asteroid)
         self.sim.planets.append(asteroid)
 
-def __main__()
+def __main__():
     i = Asteroid()
     i.runAsteroidSimulation(4, 0.1)
 
