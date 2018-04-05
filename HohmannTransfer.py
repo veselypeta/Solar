@@ -13,6 +13,7 @@ class HohmannTransfer():
         self.logfile = "marsExperiment.txt"
         self.rawData = "marsExperimentData.csv"
 
+    # this function returns the clockwise angle of a planet and the x-axis
     def getClockwiselockwiseAngle(self, planet):
         sun = self.sim.getPlanet('Sun')
         vec = planet.position - sun.position
@@ -21,6 +22,7 @@ class HohmannTransfer():
             a = 2*math.pi + a
         return a
 
+    # return the semi-major axis of the ellipse of the Hohmann transfer between two planets.
     def semiMajorAxis(self, p1Name, p2Name):
         sun = self.sim.getPlanet('Sun')
         p1 = self.sim.getPlanet(p1Name)
@@ -40,7 +42,7 @@ class HohmannTransfer():
         return p
 
     # Take two planet names and from which you get a value for velocity to get
-    # an eliptical orbit transfer from one to another
+    # an elliptical orbit transfer from one to another
     def transferVelocity(self, p1Name, p2Name):
         sun = self.sim.getPlanet('Sun')
         M = sun.mass
@@ -94,16 +96,33 @@ class HohmannTransfer():
         self.logClosestApproach(closestApproach, Solar.radiansToDegrees(marsAngle - math.pi))
         self.logData(closestApproach, Solar.radiansToDegrees(marsAngle - math.pi))
 
+    # write closest approach to file
     def logClosestApproach(self, distance, angle):
         with open(self.logfile, 'a') as myFile:
             message = "The probe was launched to mars at an angle of " + str(angle) \
                       + " and was at a closest approach of " + str(distance) + " m." + '\n'
             myFile.write(message)
 
+    # Each row in the csv file has two fields - angle, distance
     def logData(self, distance, angle):
         with open(self.rawData, 'a') as myFile:
             writer = csv.writer(myFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             writer.writerow([angle, distance])
+
+# display the orbital period of the Hohmann transfer
+def orbitalPeriodOfTransfer():
+    h = HohmannTransfer()
+    t = h.getOrbitalPeriod('Earth', 'Mars')
+    t = h.sim.convertSecToDays(t)
+    print("Orbital Period of probe" + str(t))
+
+# Print the theoretical angle of the hohmann transfer.
+def idealAngle():
+    h = HohmannTransfer()
+    a = h.transferAngle('Earth', 'Mars')
+    print("Ideas launch angle: " + str(Solar.radiansToDegrees(a)))
+
+
 
 def main():
     angles = np.arange(30, 50, 1)
@@ -111,17 +130,8 @@ def main():
         h = HohmannTransfer()
         h.launchProbe(Solar.degreesToRadians(angles[i]))
 
-# main()
-def orbitalPeriodOfTransfer():
-    h = HohmannTransfer()
-    t = h.getOrbitalPeriod('Earth', 'Mars')
-    t = h.sim.convertSecToDays(t)
-    print("Orbital Period of probe" + str(t))
-
-def idealAngle():
-    h = HohmannTransfer()
-    a = h.transferAngle('Earth', 'Mars')
-    print("Ideas launch angle: " + str(Solar.radiansToDegrees(a)))
-
 orbitalPeriodOfTransfer()
 idealAngle()
+main()
+
+

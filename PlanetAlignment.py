@@ -8,6 +8,9 @@ class PlanetAlignment(object):
         self.logfile = logfile
         self.tolerance = tolerance
 
+    # this function cycles through all the plants and calculates an angle from each, to every other (skipping the sun)
+    # Then if the angle is less than the tolerance - it continues checking the others - before finally returning True
+    # if and only if all the angles are below the tolerance
     def isAligned(self):
         aligned = False
         sun = self.sim.getPlanet('Sun')
@@ -30,7 +33,7 @@ class PlanetAlignment(object):
 
     # Works -- but quite slow
     def runSimulation(self,):
-        # run simulation for 1 year before checking if planets are aligned
+        # run simulation for 1 year before checking if planets are aligned - so they're initially misaligned
         earth = self.sim.getPlanet('Earth')
         year = self.sim.calculateOrbitalPeriods(earth)
         while self.sim.time < year:
@@ -47,8 +50,8 @@ class PlanetAlignment(object):
             self.sim.runTimestep()
 
         time_of_alignment = self.sim.time / year
+        # the time until the alignment happens is then logged.
         self.logResult(time_of_alignment)
-        #return time_of_alignment
 
     def logResult(self, time):
         with open(self.logfile, 'a') as myFile:

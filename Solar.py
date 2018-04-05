@@ -10,7 +10,7 @@ import math
 
 
 class Solar(object):
-    # declare G as a constant -- static variable
+    # declare G as a constant -- static/class variable
     G = k.gravitational_constant
 
     # a class method to convert degrees to radians
@@ -222,7 +222,7 @@ class Solar(object):
         animation = f.FuncAnimation(fig, self.movePlanets, fargs=(patches,))
         plt.show()
 
-# This is the code to run the animation -- i've commented it out so it doesn't take too long to run all exeriments
+# This is the code to run the animation -- i've commented it out so it doesn't take too long to run all experiments
 # def __main__():
 #     s = Solar('solardata.csv')
 #     s.runAnimation()

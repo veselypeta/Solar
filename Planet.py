@@ -1,4 +1,4 @@
-# Planet Class
+# Planet Class - used to abstractly represent a planet in the simulation
 import numpy as np
 
 class Planet(object):

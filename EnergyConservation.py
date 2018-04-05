@@ -23,15 +23,17 @@ class EnergyConservation(object):
             magVel = np.linalg.norm(p.velocity)
             kinetic_energy = 0.5 * p.mass * magVel * magVel
             gravit_energy = self.calculateGravitationalPotentialEnergy(p)
-            # I don't know if this should be positive or negative
+            # I subtract the gravitational energy since it is negative.
             totalEnergy += (kinetic_energy - gravit_energy)
         return totalEnergy
 
+    # write results to log file
     def logEnergy(self):
         with open(self.logfile, 'a') as csvFile:
             writer = csv.writer(csvFile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             writer.writerow([self.calculateTotalEnergy()])
 
+    # Run the simulation
     def runSimulation(self):
         earth = self.sim.getPlanet('Earth')
         year = self.sim.calculateOrbitalPeriods(earth)

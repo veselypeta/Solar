@@ -11,22 +11,24 @@ class Asteroid():
         self.numberOfAsteroids = 0
         self.log = 'asteroidExperimentLog.txt'
 
-    # This function runs the simulation for a given number of years
+    # This function runs the simulation for a given number of years - a probability is required as a float between
+    # 0 - 1. representing a percentage. i.e 0.1 is 10%
     def runAsteroidSimulation(self, years, probability):
         self.logString("New Experiment Started for " + str(years) + " Years!")
         earth = self.sim.getPlanet('Earth')
         time = years * self.sim.calculateOrbitalPeriods(earth)
         while self.sim.time < time:
             self.sim.runTimestep()
+            # if the random number generated is less than the probability - then add an asteroid
             if rand.random() < probability:
                 self.addAsteroid()
-            # check if there is a close encounter and log it
+            # check if there is a close encounter and then log it
             for obj in self.sim.planets:
                 if obj.name == 'asteroid':
                     if self.closeEncounter(obj):
                         self.logCloseEncouter(obj)
 
-
+    # this method logs a close encounter to a log file.
     def logCloseEncouter(self, asteroid):
         with open(self.log, 'a') as myFile:
             earth = self.sim.getPlanet('Earth')
@@ -35,12 +37,14 @@ class Asteroid():
                          " and the asteroid had a mass of " + str(asteroid.mass)+ ". The asteroid was " +
                          str(distance) + "m  from earth" + '\n')
 
+    # If an asteroid is created, then it is also logged.
     def logAsteroid(self, asteroid):
         with open(self.log, 'a') as myFile:
             myFile.write("An asteroid was randomly created with a position of " + str(asteroid.position) +
                          " and a velocity of " + str(asteroid.velocity) + ". There are now " +
                          str(self.numberOfAsteroids) +  '\n')
 
+    # generic function for logging a string
     def logString(self, string):
         with open(self.log, 'a') as myFile:
             myFile.write(string + '\n')
